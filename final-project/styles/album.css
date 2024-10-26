@@ -1,0 +1,136 @@
+body {
+  background-color: #FFF3F0;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.desktop {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 50px;
+  /* justify-content: center;  */
+  position: relative;
+}
+
+#polaroid-div {
+  display: flex;
+  width: 50%;
+  min-width: 400px;
+  position: absolute;
+  z-index: 5;
+  align-items: center;
+  justify-content: center;
+  /* overflow:hidden; */
+}
+
+
+
+#polaroid-div:hover {
+  animation: shake 3s infinite;
+}
+
+@keyframes shake {
+  0% {
+    transform: translateX(0px) rotate(0deg);
+  }
+
+  25% {
+    transform: translateX(-5px) rotate(-3deg);
+  }
+
+  50% {
+    transform: translateX(5px) rotate(3deg);
+  }
+
+  75% {
+    transform: translateX(-3px) rotate(-2deg);
+  }
+
+  100% {
+    transform: translateX(0px) rotate(0deg);
+  }
+}
+
+
+
+#cat-div {
+  align-items: center;
+  justify-content: center;
+  object-fit: cover;
+  width: 80%;
+  height: 70%;
+  min-width: 300px;
+  margin: 0 -100%;
+  position: absolute;
+  /* top: 0; */
+  z-index: -5;
+
+}
+
+#cat-div img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+  position: relative;
+  overflow: hidden;
+  z-index: -5;
+
+}
+
+/* FOOTER STYLES */
+.taskbar {
+  background-color: #FBD6DF;
+  height: 40px;
+  display: grid;
+  grid-template: 'start icon icon2 icon3 icon4 date';
+  grid-template-columns: 500px repeat(4, 50px) 100px;
+  align-items: center;
+  justify-items: end;
+  justify-content: end;
+  box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.2);
+  padding-right: 10px;
+  padding-left: 10px;
+  overflow: hidden;
+}
+
+#datetime {
+  color: #E4828E;
+  font-weight: 900;
+
+}
+
+.taskbar-icon {
+  height: 25px;
+  width: 25px;
+  fill: #D65778;
+}
+
+.taskbar-icon#start {
+  margin-left: auto;
+  grid-area: start;
+  justify-self: start;
+  justify-content: start;
+  justify-items: start;
+  text-align: right;
+  /* align-items: end; */
+}
+
+
+
+
+svg {
+  margin: 0;
+  padding: 0;
+
+}

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="page-one.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="scene">
+        <img src="files/yarn.svg" alt="Yarn ball" id="yarn">
+
+        <img src="files/cat-paw.svg" alt="Cat paw" id="paw">
+
+        <img src="files/angry.svg" alt="Angry symbol" id="angry" class="cat-emote">
+        <img src="files/smiley.svg" alt=Happy face" id="smiley">
+    </div>
+    <a href="page-two.html" id="nextpage">2</a>
+
+    <script>
+
+        let isStalking = false;
+        let pawY;
+
+        document.addEventListener('mousemove', updateCursorPosition);
+
+        function debounce(fn, wait = 100) {
+            // console.log('calling debounce')
+            let timer
+            return (...args) => {
+                if (timer) clearTimeout(timer)
+                timer = setTimeout(() => fn(...args), wait)
+            }
+        }
+
+
+        function updateCursorPosition(event) {
+            pawY = event.clientY - 50; // Initial offset
+            pawY = Math.max(350, Math.min(900, pawY));
+
+
+            const cursorContainer = document.getElementById('scene');
+            const yarnBall = document.getElementById('yarn');
+            const catPaw = document.getElementById('paw');
+            const angrySvg = document.getElementById('angry');
+
+
+            catPaw.style.left = event.clientX + 'px';
+            catPaw.style.top = '800px'; // 
+
+            const processMouse = debounce(() => setIsStalking())
+
+            document.addEventListener('mousemove', () => {
+                processMouse();
+                event.stopPropagation();
+
+            });
+
+
+            function setIsStalking() {
+                // console.log('calling isstalking')
+                // console.log(isStalking)
+                // catPaw.style.top = '900px';
+
+                if (!isStalking) {
+                    isStalking = true;
+
+
+                    if (((event.clientY < 200) && parseInt(catPaw.style.top, 10) !== 800)) {
+
+                        catPaw.classList.add('shake-animation');
+                        angrySvg.style.display = 'block';
+
+                        angrySvg.style.top = catPaw.offsetTop + 'px';
+                        angrySvg.style.left = (catPaw.offsetLeft + catPaw.offsetWidth + 50) + 'px';
+
+                    } else {
+                        catPaw.classList.remove('shake-animation');
+                        angrySvg.style.display = 'none';
+                    }
+
+                    console.log('Pounce!')
+
+                    // console.log('Updating Y')
+                    catPaw.style.top = pawY + 'px';
+                    isStalking = false;
+                }
+
+                // console.log(isStalking)
+            }
+
+
+            let x = event.clientX;
+            let y = event.clientY;
+
+
+            yarnBall.style.left = x + 'px';
+            yarnBall.style.top = y + 'px';
+
+
+            // repeat again..?
+            if (((event.clientY < 200) && parseInt(catPaw.style.top, 10) !== 800)) {
+
+                catPaw.classList.add('shake-animation');
+                angrySvg.style.display = 'block';
+
+                angrySvg.style.top = catPaw.offsetTop + 'px';
+                angrySvg.style.left = (catPaw.offsetLeft + catPaw.offsetWidth + 50) + 'px';
+
+            } else if ((parseInt(catPaw.style.top, 10) === 800)) {
+                console.log('we out dis btch!')
+                catPaw.classList.remove('shake-animation');
+                angrySvg.style.display = 'none';
+            }
+        }
+
+
+    </script>
+</body>
+
+</html>

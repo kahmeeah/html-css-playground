@@ -1,0 +1,97 @@
+*, html, body {
+    cursor:url("../files/cursors/Normal.cur"), auto;
+}
+
+
+body {
+    display: flex;
+    margin: 0px;
+    height: 100vh;
+    background-color: lavenderblush;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}   
+
+#nextpage{
+  position: absolute;
+  z-index: 20;
+  right: 50px;
+  color: rgb(234, 53, 137);
+  text-decoration: none;
+  font-weight: 900;
+}
+
+
+#scene {
+
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+#paw{
+  position: absolute;
+  top: 900px;
+  /* top: 900px; min */
+  width: 300px;
+  transition: top 250ms ease-out;
+}
+
+
+#yarn{
+  top: 0;
+  position: absolute;
+  width: 200px;
+
+}
+
+#angry{
+  width: 50px;
+  position: absolute;
+  display: none;
+}
+
+#smiley{
+  width: 50px;
+  position: absolute;
+  display: none;
+}
+
+.shake-animation {
+  animation-name: pawShake;
+  animation-delay: 1.4s;
+  animation-duration: 1s; 
+  animation-iteration-count:infinite; /* Repeat the animation 3 times */
+  animation-timing-function: ease-out;
+}
+
+@keyframes pawShake {
+  0%   { transform: translateY(0); }
+  30%  { transform: translateY(100px); }
+  50% {transform: translateY(100px);}
+  100% { transform: translateY(0); } /* Return to original position */
+}
+
+@keyframes pop-up-fade {
+  0% {opacity: 0%;}
+  20% {opacity: 100%; scale: 110%;}
+  40% {scale: 100%;}
+  60% {scale: 110%;}
+  80% {opacity: 100%; scale: 100%;}
+  100% {opacity: 0%; scale: 100%;}
+  
+}
+
+.cat-emote{
+  opacity: 0%;
+  animation-name: pop-up-fade;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-delay: 500ms;
+  animation-duration: 1.9s;
+  animation-timing-function: ease-in;
+}

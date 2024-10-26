@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="styles/album.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Album</title>
+</head>
+
+<body>
+    <main class="desktop">
+
+
+        <div id="polaroid-div">
+            <img src="files/album/polaroid-transparent.svg" alt="">
+            <div id="cat-div">
+                <img src="files/album/placeholder.png" alt="">
+            </div>
+
+        </div>
+
+
+
+
+    </main>
+
+
+
+    <footer class="taskbar">
+
+
+        <div id="start">
+            <svg class="taskbar-icon">
+                <use href="files/symbol-defs.svg#icon-pixel-paw"></use>
+            </svg>
+        </div>
+
+        <svg class="taskbar-icon">
+            <use href="files/symbol-defs.svg#icon-wifi"></use>
+        </svg>
+        <svg class="taskbar-icon">
+            <use href="files/symbol-defs.svg#icon-volume"></use>
+        </svg>
+        <svg class="taskbar-icon">
+            <use href="files/symbol-defs.svg#icon-bell"></use>
+        </svg>
+        <svg class="taskbar-icon">
+            <use href="files/symbol-defs.svg#icon-battery"></use>
+        </svg>
+        <div id="datetime">Sat May 4</div>
+
+        </div>
+
+
+
+    </footer>
+
+    <script>
+        function fetchRandomCatImage() {
+            fetch('https://api.thecatapi.com/v1/images/search')
+                .then(response => response.json())
+                .then(data => {
+                    const catImage = document.querySelector('#cat-div img');
+                    catImage.src = data[0].url;
+                })
+                .catch(error => console.error('Error fetching cat image:', error));
+        }
+
+
+        fetchRandomCatImage();
+
+
+        setInterval(fetchRandomCatImage, 5000); // refresh every 5 seconds
+    </script>
+
+</body>
+
+</html>

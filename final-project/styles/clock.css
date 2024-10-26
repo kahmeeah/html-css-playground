@@ -1,0 +1,151 @@
+body {
+  background-color: #FFF3F0;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.desktop {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 50px;
+  /* justify-content: center;  */
+  position: relative;
+}
+
+#cat-div {
+  width: 50%;
+  min-width: 400px;
+  position: absolute;
+  z-index: -5;
+}
+
+#setup,
+#timerDisplay {
+
+  font-size: 24px;
+  margin: 20px;
+}
+
+#fishCanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+
+
+#setup,
+#end {
+  text-align: center;
+
+  margin-bottom: 20px;
+}
+
+
+#timerInput,
+#secondsInput {
+  width: 150px;
+  position: relative;
+  top: 50px;
+  padding: 10px;
+  border: 2px solid #FFC0CB;
+  border-radius: 8px;
+  margin: 5px;
+  font-family: 'Arial', sans-serif;
+  font-size: 30px;
+}
+
+
+#startButton,
+#resetButton {
+  top: 60px;
+  position: relative;
+  display: block;
+  background-color: #E6E6FA;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-family: 'Arial', sans-serif;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#startButton:hover,
+#resetButton:hover {
+  background-color: #D8BFD8;
+}
+
+
+#timerDisplay {
+  top: 60px;
+  position: relative;
+  font-size: 150px;
+  font-weight: bold;
+  color: #fff;
+}
+
+
+
+
+
+
+
+/* FOOTER STYLES */
+.taskbar {
+  background-color: #FBD6DF;
+  height: 40px;
+  display: grid;
+  grid-template: 'start icon icon2 icon3 icon4 date';
+  grid-template-columns: 500px repeat(4, 50px) 100px;
+  align-items: center;
+  justify-items: end;
+  justify-content: end;
+  box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.2);
+  padding-right: 10px;
+  padding-left: 10px;
+  overflow: hidden;
+}
+
+#datetime {
+  color: #E4828E;
+  font-weight: 900;
+
+}
+
+.taskbar-icon {
+  height: 25px;
+  width: 25px;
+  fill: #D65778;
+}
+
+.taskbar-icon#start {
+  margin-left: auto;
+  grid-area: start;
+  justify-self: start;
+  justify-content: start;
+  justify-items: start;
+  text-align: right;
+  /* align-items: end; */
+}
+
+
+
+
+svg {
+  margin: 0;
+  padding: 0;
+
+}

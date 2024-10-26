@@ -1,0 +1,201 @@
+@font-face {
+    font-family: StitchWarrior;
+    src: url(files/fonts/StitchWarrior.ttf);
+}
+@font-face {
+    font-family: HovdenStitch;
+    src: url(files/fonts/HovdenStitch.ttf);
+}
+@font-face {
+    font-family: KingthingsEmbroidery;
+    src: url(files/fonts/KingthingsEmbroidery.ttf);
+}
+/* @font-face {
+    font-family: Lollypop;
+    src: url(fonts/Lollypop.ttf);
+}
+@font-face {
+    font-family: Psychoart;
+    src: url(fonts/Psychoart.ttf);
+}
+@font-face {
+    font-family: Rossanova;
+    src: url(fonts/Rossanova.otf);
+} */
+
+cursor{
+    src:url(files/hand.cur), auto;
+
+}
+
+body {
+    background-color: #fff4d8;
+    text-align: center;
+    display: grid;
+    grid-template-columns: 1fr 404px 1fr;
+    grid-template-rows: auto auto auto auto auto auto 1fr;
+    grid-template-areas: "title title title"
+    "subtitle subtitle subtitle"
+    "text1 img text2"
+    "text3 img text4"
+    "text5 img text6"
+    "text7 img text8"
+    "footer footer footer";
+    cursor:url(files/cursors/Normal.cur), auto;
+    min-height: 100vh;
+    max-width: 100%;
+}
+
+.border{
+    stroke: black;
+    width: 50px;
+}
+
+
+a{
+    text-decoration: none;
+    color: inherit;
+}
+a:hover{
+    /* cursor: url(files/Link.cur), auto; */
+    cursor: inherit;
+    text-decoration: underline;
+}
+a#null:hover{
+    color: gray;
+    cursor: url(files/cursors/Unavailable.cur), auto;
+    text-decoration: none;
+}
+
+
+
+div{
+    font-family: HovdenStitch;
+    word-spacing: -2px;
+    letter-spacing: -1.4px;
+    margin: 0px;
+}
+
+h1{
+    font-family: StitchWarrior;
+    font-size: 8vh;
+    word-spacing: -30px;
+    margin-bottom: 0px;
+    grid-area: title;
+
+}
+
+h2{
+    font-family: KingthingsEmbroidery;
+    margin: 0px;
+    grid-area: subtitle;
+}
+
+img{
+    filter: grayscale(100%) sepia(30%);
+    
+}
+
+
+#bear {
+    display: block;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    height: 50vh;
+    max-width:100%;
+    grid-area: img;
+
+}
+
+/* #ladybug {
+    display: block;
+    position: absolute;
+    width: 40vh;
+    right: -10px;
+    bottom: 0px;
+}
+
+#stamp {
+    display: block;
+    position: absolute;
+    width: 30vh;
+    top: 450px;
+    left: 150px;
+}
+
+#orange {
+    display: block;
+    position: absolute;
+    width: 10vh;
+    top: 100px;
+    left: 100px;
+} */
+
+#box1{
+    grid-area: text1;
+    display: block;
+    position: relative;
+    justify-self: right;
+    top: 80px;
+    left: 95px;
+    
+}
+#box2{
+    grid-area: text2;
+    display: block;
+    position: relative;
+    justify-self: left;
+    top: 50px;
+    right: 20px;
+
+
+}
+#box3{
+    grid-area: text3;
+    display: block;
+    position: relative;
+    justify-self: right;
+    top: 30px;
+    left: 10px;
+}
+#box4{
+    grid-area: text4;
+    display: block;
+    position: relative;
+    justify-self: left;
+    top: 10px;
+    right: 95px;
+}
+#box5{
+    grid-area: text5;
+    display: block;
+    position: relative;
+    justify-self: right;
+    top: 20px;
+    left: 40px;
+}
+#box6{
+    grid-area: text6;
+    display: block;
+    position: relative;
+    justify-self: left;
+    top: 0px;
+    right: 35px;
+}
+#box7{
+    grid-area: text7;
+    display: block;
+    position: relative;
+    justify-self: right;
+    top: 8px;
+    left: -10px;
+}
+#box8{
+    grid-area: text8;
+    display: block;
+    position: relative;
+    justify-self: left;
+    top: -20px;
+    right: -25px;
+}

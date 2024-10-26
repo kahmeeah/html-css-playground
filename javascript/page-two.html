@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="page-two.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page 2</title>
+</head>
+
+<body>
+
+
+    <div id="scene">
+
+        <a href="/page-one.html" id="nextpage">1</a>
+        <div class="outside">
+            <img src="files/sun.svg" alt="Sun" class="sun">
+            <img src="files/moon.svg" alt="Moon" class="moon">
+        </div>
+        <img src="files/window.svg" alt="A window with curtains" class="window">
+        <img src="files/cat-sleeping.svg" alt="A sleeping cat" class="cat">
+    </div>
+
+
+    <script>
+        window.addEventListener('scroll', function () {
+
+            const scrollPercentage = calculateScrollPercentage();
+
+            updateGradient(scrollPercentage);
+            toggleSunMoonVisibility(scrollPercentage);
+        });
+
+
+        function calculateScrollPercentage() {
+            const documentHeight = document.body.scrollHeight;
+            const currentScroll = window.scrollY + window.innerHeight;
+            return (currentScroll / documentHeight) * 100;
+        }
+
+
+        function updateGradient(percentage) {
+            const outsideDiv = document.querySelector('.outside');
+
+
+            const startColorDay = [0, 191, 255];
+            const endColorDay = [224, 255, 255];
+            const startColorNight = [35, 39, 65];
+            const endColorNight = [255, 105, 180];
+
+            const topWeight = percentage / 100;
+            const bottomWeight = 1 - topWeight;
+
+            const topR = Math.round(startColorNight[0] * topWeight + startColorDay[0] * bottomWeight);
+            const topG = Math.round(startColorNight[1] * topWeight + startColorDay[1] * bottomWeight);
+            const topB = Math.round(startColorNight[2] * topWeight + startColorDay[2] * bottomWeight);
+
+
+            const bottomR = Math.round(endColorNight[0] * topWeight + endColorDay[0] * bottomWeight);
+            const bottomG = Math.round(endColorNight[1] * topWeight + endColorDay[1] * bottomWeight);
+            const bottomB = Math.round(endColorNight[2] * topWeight + endColorDay[2] * bottomWeight);
+
+
+            outsideDiv.style.backgroundImage = `linear-gradient(to bottom, rgb(${topR}, ${topG}, ${topB}), rgb(${bottomR}, ${bottomG}, ${bottomB}))`;
+        }
+
+
+
+        function toggleSunMoonVisibility(percentage) {
+            const sun = document.querySelector('.sun');
+            const moon = document.querySelector('.moon');
+
+            if (percentage >= 50) {
+                sun.style.display = 'none';
+                moon.style.display = 'block';
+            } else {
+                sun.style.display = 'block';
+                moon.style.display = 'none';
+            }
+        }
+
+
+
+    </script>
+</body>
+
+</html>

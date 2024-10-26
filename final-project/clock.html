@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="styles/clock.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clock</title>
+</head>
+
+<body>
+    <main class="desktop">
+        <div id="cat-div">
+            <img src="files/clock/cat-button.svg" alt="">
+        </div>
+        <div id="setup">
+            <input type="number" id="timerInput" placeholder="Minutes">
+            <input type="number" id="secondsInput" placeholder="Seconds">
+            <button id="startButton">Start</button>
+            <!-- <button id="resetButton" style="display: none;">Reset</button> -->
+        </div>
+        <div id="end">
+            <button id="resetButton" style="display: none;">Reset</button>
+        </div>
+
+        <div id="timerDisplay">
+        </div>
+        <canvas id="fishCanvas"></canvas> </div>
+
+    </main>
+
+
+
+    <!-- <audio id="alarmSound">
+        <source src="alarm.mp3" type="audio/mpeg">
+        </audio> -->
+
+    <footer class="taskbar">
+
+
+        <div id="start">
+            <svg class="taskbar-icon">
+                <use href="files/symbol-defs.svg#icon-pixel-paw"></use>
+            </svg>
+        </div>
+
+        <svg class="taskbar-icon">
+            <use href="files/symbol-defs.svg#icon-wifi"></use>
+        </svg>
+        <svg class="taskbar-icon">
+            <use href="files/symbol-defs.svg#icon-volume"></use>
+        </svg>
+        <svg class="taskbar-icon">
+            <use href="files/symbol-defs.svg#icon-bell"></use>
+        </svg>
+        <svg class="taskbar-icon">
+            <use href="files/symbol-defs.svg#icon-battery"></use>
+        </svg>
+        <div id="datetime">Sat May 4</div>
+
+        </div>
+
+
+
+    </footer>
+
+    <script>
+
+        const timerInput = document.getElementById('timerInput');
+        const secondsInput = document.getElementById('secondsInput');
+        const startButton = document.getElementById('startButton');
+        const resetButton = document.getElementById('resetButton');
+        const timerDisplay = document.getElementById('timerDisplay');
+        const fishCanvas = document.getElementById('fishCanvas');
+        // const alarmSound = document.getElementById('alarmSound');
+
+
+        let svgPath;
+
+        function loadSVGPath() {
+            fetch('files/clock/taiyaki.svg')
+                .then(response => response.text())
+                .then(data => {
+                    svgPath = extractPathFromSVG(data)
+                    // console.log("SVg path loaded: ", svgPath)
+                    startFishAnimation(fishCanvas);
+                })
+                .catch(error => console.error("Error loading SVG:", error));
+        }
+
+        function extractPathFromSVG(svgText) {
+            const parser = new DOMParser();
+            const svgDoc = parser.parseFromString(svgText, "image/svg+xml");
+            const pathElement = svgDoc.querySelector('path');
+
+            if (pathElement) {
+                return pathElement.getAttribute('d');
+            } else {
+                console.error("No <path> element found in SVG");
+                return "";
+            }
+        }
+
+
+
+        const fillColors = ['red', 'blue', 'green', 'yellow'];
+
+        const canvas = document.getElementById('fishCanvas');
+        const context = canvas.getContext('2d')
+
+        let width;
+        let height;
+
+        let fallingCount;
+        const maxFallingShapes = 3;
+
+
+
+        let pxScale = window.devicePixelRatio;
+
+        const canvasCenterX = canvas.width / 2;
+        const canvasCenterY = canvas.height / 2;
+
+        function setup() {
+
+
+            // fixed canvas size
+            width = window.innerWidth;
+            height = window.innerHeight;
+
+
+            canvas.style.width = width + 'px';
+            canvas.style.height = height + 'px';
+
+            canvas.width = width * pxScale;
+            canvas.height = height * pxScale;
+
+            // normalize the coords systema
+            context.scale(pxScale, pxScale);
+
+
+
+
+        }
+
+
+        let timerInterval;
+
+        startButton.addEventListener('click', startTimer);
+        resetButton.addEventListener('click', resetAnimation);
+
+        function startTimer() {
+            let minutesRemaining = timerInput.value;
+            let secondsRemaining = secondsInput.value;
+            timerDisplay.textContent = formatTime(minutesRemaining, secondsRemaining);
+
+
+            document.getElementById('setup').style.display = 'none';
+            document.getElementById('timerDisplay').style.display = 'block';
+
+            timerInterval = setInterval(() => {
+                if (secondsRemaining === 0) {
+                    minutesRemaining--;
+                    secondsRemaining = 59;
+                } else {
+                    secondsRemaining--;
+                }
+
+                timerDisplay.textContent = formatTime(minutesRemaining, secondsRemaining);
+
+                if (minutesRemaining <= 0 && secondsRemaining <= 0) {
+                    clearInterval(timerInterval);
+                    // alarmSound.play();
+                    document.getElementById('timerDisplay').style.display = 'none';
+                    document.getElementById('end').style.display = 'block';
+                    resetButton.style.display = 'block';
+
+                }
+
+            }, 1000);
+
+
+            // startFishAnimation(fishCanvas); 
+            loadSVGPath();
+        }
+
+        function resetAnimation() {
+
+            continueAnimating = false;
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            blocks = [];
+            resetButton.style.display = 'none';
+            document.getElementById('setup').style.display = 'block';
+        }
+
+
+        function formatTime(minutes, seconds) {
+            return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+
+
+
+
+
+        const blockSize = 30;
+        const blockColors = ['red', 'blue', 'green', 'yellow'];
+
+        let blocks = [];
+
+        function startFishAnimation(canvas) {
+            continueAnimating = true;
+            console.log("Fish animation trigged.")
+            // console.log("SVg path loaded: ", svgPath)
+            setInterval(createNewBlock, 2500);
+            requestAnimationFrame(animationLoop);
+        }
+
+        function createNewBlock() {
+            if (continueAnimating) {
+                const r = Math.floor(Math.random() * 256);
+                const g = Math.floor(Math.random() * 256);
+                const b = Math.floor(Math.random() * 256);
+                const color = `rgb(${r}, ${g}, ${b})`;
+
+
+                blocks.push({
+                    x: Math.random() * canvas.width,
+                    y: -blockSize,
+                    dy: 1 + Math.random() * 2,
+                    color: color
+                });
+            }
+        }
+
+        let continueAnimating = true;
+
+        function animationLoop() {
+            if (continueAnimating) {
+                context.clearRect(0, 0, canvas.width, canvas.height);
+
+                for (let i = 0; i < blocks.length; i++) {
+                    blocks[i].y += blocks[i].dy;
+
+
+                    if (blocks[i].y > canvas.height) {
+                        blocks.splice(i, 1);
+                        i--;
+                    } else {
+                        drawSvgShape(blocks[i]);
+                    }
+                }
+
+                requestAnimationFrame(animationLoop);
+            }
+        }
+
+        function drawSvgShape(block) {
+            const path = new Path2D(svgPath);
+            context.fillStyle = block.color;
+            context.translate(block.x, block.y);
+            const scaleFactor = 0.5;
+            context.scale(scaleFactor, scaleFactor);
+            context.fill(path);
+            context.resetTransform();
+        }
+
+
+        window.addEventListener('load', () => {
+            setup();
+            // draw();
+        });
+
+
+        window.addEventListener('resize', () => {
+            setup();
+            // draw();   
+            // animate();  
+        });
+
+    </script>
+</body>
+
+</html>

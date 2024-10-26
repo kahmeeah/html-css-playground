@@ -1,0 +1,234 @@
+*, html, body {
+    cursor:url("../files/cursors/Normal.cur"), auto;
+}
+
+
+body {
+    display: flex;
+    margin: 0px;
+    height: 100vh;
+    background-color: lavenderblush;
+    justify-content: center;
+    align-items: center;
+}
+
+#scene {
+    width: 200px;
+    height: 200px;
+    perspective: 1000px;
+  }
+
+  .cube{
+    /* transform: rotateY(24deg) rotateX(-10deg) rotateZ(-4deg); */
+    /* transform-origin: center bottom; */
+    animation-name: box-rotate;
+    animation-duration: 1.5s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+  }
+
+  #scene:hover{
+    animation-name: box-shake;
+    animation-duration: 500ms;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+
+
+
+  }
+
+.box {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background-color: burlywood;
+    border: 1px solid rgb(65, 43, 14);
+    
+}
+
+/* front */
+.box:nth-child(1) {
+    transform: rotateY(0deg) translateZ(100px);
+    background-color: burlywood;
+  }
+
+  
+  /* right */
+  .box:nth-child(2) {
+    transform: rotateY(90deg) translateZ(100px);
+    z-index: -1;
+  }
+  
+  /* back */
+  .box:nth-child(3) {
+    transform: rotateY(180deg) translateZ(100px);
+    z-index: -1;
+
+  }
+  
+  /* left */
+  .box:nth-child(4) {
+    transform: rotateY(-90deg) translateZ(100px);
+
+  }
+  
+  /* top right */
+  .box:nth-child(5) {
+
+
+    /* transition: border-top 0s linear 1s, border-bottom 0s linear 1s; */
+    border-top: 5px solid;
+    border-bottom: 5px solid;
+
+    transform: rotateX(90deg) translateZ(100px) translateX(100px);
+    transform-origin: right;
+    animation-name: open-right;
+    animation-delay: 1.5s;
+    animation-duration: 1.5s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+    width: 50%;
+    z-index: -1;
+  }
+  
+    /* top left */
+    
+  .box:nth-child(6) {
+    border-top: 5px solid;
+    border-bottom: 5px solid;
+
+    transform: rotateX(90deg) translateZ(100px) ;
+    transform-origin: left;
+    animation-name: open-left;
+    animation-delay: 1.5s;
+    animation-duration: 1.5s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+    width: 50%;
+    z-index: -1;
+  }
+
+
+
+
+  /* bottom */
+  .box:nth-child(7) {
+    transform: rotateX(-90deg) translateZ(100px);
+    z-index: -1;
+  }
+
+  /* cat svg */
+
+  .box:nth-child(8) {
+    z-index: 2;
+    border: none;
+  }
+
+
+
+  @keyframes open-right {
+    0% {
+        transform: rotateX(90deg) translateZ(100px) translateX(100px);
+        
+    }
+    /* 50% {
+        transform: rotateX(90deg) translateZ(100px) translateX(100px) rotateY(90deg);
+    } */
+    100% {
+        transform: rotateX(90deg) translateZ(100px) translateX(100px) rotateY(250deg) rotateZ(0deg);
+    }
+}
+
+@keyframes open-left {
+    0% {
+        transform: rotateX(90deg) translateZ(100px) ;
+    }
+    /* 50% {
+        transform: rotateX(90deg) translateZ(100px) rotateY(-90deg);
+    } */
+    100% {
+        transform: rotateX(90deg) translateZ(100px)  rotateY(-250deg) rotateZ(0deg) translateY(0px);
+    }
+}
+
+@keyframes box-rotate {
+    from {
+        transform: rotateY(180deg) rotateX(30deg) rotateZ(-30deg);
+    }
+    to{
+        transform: rotateY(0deg) rotateX(0deg) rotateZ(0deg);
+    }
+
+    
+}
+
+@keyframes cat-peep {
+    from {
+        opacity: 100%;
+        bottom: -90px;
+    }
+    to {
+        opacity: 100%;
+        bottom: 10px;
+    }
+    
+}
+
+@keyframes cat-rise {
+    from {
+        opacity: 100%;
+        bottom: -20px;
+    }
+    to {
+        opacity: 100%;
+        bottom: 35px;
+    }
+    
+}
+
+@keyframes box-shake {
+    0% {
+        transform: rotate(0deg);
+    }
+    30%{
+        transform: rotate(3deg);
+
+    }
+    60% {
+        transform: rotate(-3deg);
+
+    }
+    100% {
+        transform: rotate(0deg);
+
+    }
+    
+}
+
+.cat{
+    
+    position: absolute;
+    display: block;
+    z-index: 1000;
+    left: -130px;
+    bottom: -50px;
+    opacity: 0%;
+
+    animation-name: cat-peep;
+    animation-delay: 2s;
+    animation-duration: 1s;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
+
+  transition: transform 0.5s ease-in-out; 
+}
+
+.cat:hover{
+    transform: translateY(-30px);
+    
+}

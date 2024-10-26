@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Canvas</title>
+    <style>
+
+        body {
+          margin: 0;
+          display: flex;
+          height: 100vh;
+          align-items: center;
+          justify-content: center;
+        }
+
+
+        canvas{
+            image-rendering: pixelated;
+        }
+
+        div{
+          position: absolute;
+          z-index: 10;
+          top: 180px;
+          left: 100px; 
+        }
+
+        #pause{
+          cursor: pointer;
+          width: 50px;
+          left: 60px;
+          fill: aquamarine;
+        }
+        #play{
+          cursor: pointer;
+          width: 50px;
+        }
+
+          img{
+            position: absolute;
+          }
+    
+      </style>
+</head>
+<body>
+  <div>
+  <audio src="files/audio/Slowdive Celia's Dream.mp3"></audio>
+  <img id="pause" src="files/music-pause.svg" alt="">
+  <img id="play" src="files/music-play.svg" alt="">
+</div>
+
+    
+    <canvas>
+        <img  id="cat" src="files/cat.svg" alt="A cat wearing headphones and singing.">
+        <img  id="album" src="files/sd2.jpg" alt="A cat wearing headphones and singing.">
+        <!-- <img id="background" src="files/bg2-2.png" alt="A valley"> -->
+        <img id="halftone" src="files/dots006.svg" alt="">
+        <img id="texture" src="files/texture2.jpg" alt="">
+        <img id="squigglyleft" src="files/squiggly-left.svg" alt="">
+        <img id="squigglyright" src="files/squiggly-right.svg" alt="">
+        <img id="pause" src="files/music-pause.svg" alt="">
+        <img id="play" src="files/music-play.svg" alt="">
+    </canvas>
+    <script>
+        const canvas = document.querySelector('canvas')
+
+        
+        const context = canvas.getContext('2d')
+
+        let width;
+        let height;
+
+        let pxScale = 5;
+
+        const catimage = document.getElementById('cat')
+
+        const album = document.getElementById('album')
+       
+
+
+        const backgroundimage = document.getElementById('background')
+        const bgog = document.getElementById('og')
+        const canvasCenterX = canvas.width / 2;
+        const canvasCenterY = canvas.height / 2;
+
+        const halftoneimage = document.getElementById('halftone')
+        const textureimage = document.getElementById('texture')
+
+        const squigglyleft = document.getElementById('squigglyleft')
+        const squigglyright = document.getElementById('squigglyright')
+        const pausebtn = document.getElementById('pause')
+        const playbtn = document.getElementById('play')
+
+        const songsrc = "files/audio/Slowdive Celia's Dream.mp3"
+        let currentsong = new Audio(songsrc);
+
+        function playsong() {
+          console.log("play Button clicked")
+          if (currentsong) {
+            currentsong.play();
+          }
+        }
+
+        function pausesong() {
+          console.log("pause Button clicked")
+          if (currentsong) {
+            currentsong.pause();
+          }
+        }
+
+        // // Event Listeners
+        playbtn.addEventListener('click', playsong);
+        pausebtn.addEventListener('click', pausesong);
+
+
+
+        
+
+    // create seperate canvas for elements
+
+    // create cat canvas 
+    const catCanvas = document.createElement('canvas');
+    const catContext = catCanvas.getContext('2d');
+
+    // create valley canvas
+    const valleyCanvas = document.createElement('canvas');
+    const valleyContext = valleyCanvas.getContext('2d');
+
+    // create album canvas
+    const albumCanvas = document.createElement('canvas');
+    const albumContext = albumCanvas.getContext('2d');
+
+    // create music control canvas
+    const musicCanvas = document.createElement('canvas');
+    const musicContext = musicCanvas.getContext('2d');
+
+    // load fonts
+    let font1 = new FontFace("Bad Coma", "url(files/fonts/BadComa.ttf)");
+    // let font2 = new FontFace("Newspaper", "url(files/fonts/NewspaperCutoutWhiteOnBlac-Rg.ttf)");
+    // let font3 = new FontFace("Doctor Punk", "url(files/fonts/doctor punk.otf)");
+    let font2 = new FontFace("Fidalga", "url(files/fonts/Fidalga-Regular.ttf)");
+    // let font5 = new FontFace("Cheap", "url(files/fonts/Cheap Potatoes Black.ttf)");
+
+
+            
+        
+        function setup(){
+            // fixed canvas size
+            width = window.innerWidth;
+            height = window.innerHeight;
+
+            // set the CSS display size
+            canvas.style.width = width + 'px';
+            canvas.style.height = height + 'px';
+
+            canvas.width = width * pxScale;
+            canvas.height = height * pxScale;
+
+            // normalize the coords systema
+            context.scale(pxScale, pxScale); 
+
+            // === for cat canvas ===
+
+            catCanvas.style.width = width + 'px';
+            catCanvas.style.height = height + 'px';
+
+            catCanvas.width = width * pxScale;
+            catCanvas.height = height * pxScale;
+
+            catContext.scale(pxScale, pxScale); 
+
+            // === for valley canvas ===
+
+            // valleyCanvas.style.width = width + 'px';
+            // valleyCanvas.style.height = height + 'px';
+
+            // valleyCanvas.width = width * pxScale;
+            // valleyCanvas.height = height * pxScale;
+            
+            // valleyContext.scale(pxScale, pxScale); 
+
+            // === for album canvas ===
+
+            albumCanvas.style.width = width + 'px';
+            albumCanvas.style.height = height + 'px';
+
+            albumCanvas.width = width * pxScale;
+            albumCanvas.height = height * pxScale;
+
+            albumContext.scale(pxScale, pxScale); 
+
+            // === for music canvas ===
+
+            musicCanvas.style.width = width + 'px';
+            musicCanvas.style.height = height + 'px';
+
+            musicCanvas.width = width * pxScale;
+            musicCanvas.height = height * pxScale;
+
+            musicContext.scale(pxScale, pxScale); 
+
+          }
+
+          const pixelColors = []
+          function sampleColors(){
+            context.drawImage(album, 0, 0, 45, 30);
+            let imageData = context.getImageData(0, 0, 45 * pxScale, 30 * pxScale)
+            let data = imageData.data;
+  
+
+
+            context.clearRect(0,0, width, height);
+            for (let channel=0; channel < data.length; channel += 4){
+                let color = `rgba(${data[channel]}, ${data[channel + 1]}, ${data[channel + 2]}, ${data[channel + 3]})`;
+                pixelColors.push(color)
+
+            }
+
+          }
+
+          const imgScale = 50;
+          function drawAlbum(targetImage) {
+          albumContext.drawImage(targetImage, 0, 0, targetImage.width/imgScale, targetImage.height/imgScale);
+          
+
+          // sample image while accounting for pixel density
+          let imageData = albumContext.getImageData(0, 0, albumCanvas.width/imgScale, albumCanvas.height/imgScale);
+          let data = imageData.data;
+
+          albumContext.clearRect(0, 0, width, height);
+
+          // albumContext.putImageData(imageData, 0, 0);
+
+
+          // pixels by x, y coordinate
+          for (let y = 0; y < imageData.height; y++) { // for every row
+            for (let x = 0; x < imageData.width; x++) { // visit every column (pixel channel)
+              let index = (x + y * imageData.width) * 4; // index position of every pixel
+
+              let r = data[index + 0]; // red
+              let g = data[index + 1]; // green
+              let b = data[index + 2]; // blue
+              let a = data[index + 3]; // alpha
+
+              // apply RGB as fill color to subsequent shapes
+              albumContext.fillStyle = `rgba(${r}, ${g}, ${b}, ${a})`;
+
+              // draw circles at x, y
+              albumContext.save();
+              albumContext.translate(0, 0);
+              albumContext.beginPath();
+              // albumContext.arc(x * imgScale / pxScale, y * imgScale / pxScale, 8, 0, Math.PI * 2);
+              albumContext.fillRect(x * imgScale / pxScale, y * imgScale / pxScale, 10, 10);
+              albumContext.fill();
+              albumContext.restore();
+              // stroke border thing
+              // albumContext.lineWidth=.25
+              // albumContext.strokeStyle = 'white';  // adjust color as desired
+              // albumContext.strokeRect(x * imgScale / pxScale+ 0.5, y * imgScale / pxScale+ 0.5, 10, 10); 
+
+              // draw symbol at x, y
+              albumContext.fillText('#@*', x * imgScale / pxScale, y * imgScale / pxScale); //TODO: randomize
+            }
+          }
+        }
+
+
+
+        
+        const numSquares = 50;
+        const maxWidth = 200; 
+        const maxHeight = 200; 
+        const maxColorValue = 255;
+
+
+        function drawRandomSquares(context, numSquares, maxWidth, maxHeight, maxColorValue, pixelColors) {
+        for (let i = 0; i < numSquares; i++) {
+          context.save();
+          // context.globalCompositeOperation="lighten"
+          context.filter="opacity(50%)"
+
+          // Random translation values 
+          const translateX = Math.random() * window.innerWidth;
+          const translateY = Math.random() * window.innerWidth;
+          context.translate(translateX, translateY);
+
+          // Random square dimensions
+          const width = Math.random() * maxWidth;
+          const height = Math.random() * maxHeight;
+
+          context.fillStyle = pixelColors[Math.floor(Math.random() * pixelColors.length)];;
+    
+
+          // Draw the square
+          context.fillRect(0, 0, width, height);
+
+          // Restore drawing state
+          context.restore();
+        }
+      }
+
+
+
+          function draw(){
+            context.fillStyle = pixelColors[Math.floor(Math.random() * pixelColors.length)];
+            font1.load().then(function(font){
+
+            document.fonts.add(font);
+            console.log('Font loaded');
+            context.fillStyle = pixelColors[Math.floor(Math.random() * pixelColors.length)];
+            context.save()
+            context.font = '88px Fidalga';
+            context.fillText('SLOWDIVE\'', 100, 100);
+            context.restore()
+
+            });
+
+            font1.load().then(function(font){
+
+            document.fonts.add(font);
+            console.log('Font loaded');
+            context.fillStyle = pixelColors[Math.floor(Math.random() * pixelColors.length)];
+            context.save()
+            context.translate(0, -40)
+            context.font = '55px Bad Coma';
+            context.fillText('CELIA\'S DREAM', 100, 200);
+            context.restore()
+
+            });
+
+            
+
+            
+
+            sampleColors(album);
+
+            // === draw on cat canvas ===
+            catContext.drawImage(catimage, 0, 0, catimage.width, catimage.height);
+            catContext.save()
+            
+            catContext.drawImage(squigglyleft,3,30, squigglyleft.width/10, squigglyleft.height/10)
+            catContext.drawImage(squigglyright, 90,30, squigglyright.width/10, squigglyright.height/10)
+            catContext.restore()
+            catContext.fillStyle = pixelColors[Math.floor(Math.random() * pixelColors.length)];
+            
+            catContext.globalCompositeOperation = 'source-in';
+            catContext.fillRect(0, 0, catCanvas.width, catCanvas.height);
+            catContext.globalCompositeOperation = 'multiply';
+            // luminosity, screen, overlay, hard-light, soft-light, lighten, darken, maybe color-burn, exclusion
+            catContext.filter = 'opacity(100%)'
+            catContext.drawImage(catimage, 0, 0, catimage.width, catimage.height);
+
+
+
+            
+
+            // === draw on valley canvas ===
+            // valleyContext.filter="blur(0px) drop-shadow(5px -500px white)"
+            // valleyContext.drawImage(backgroundimage, 0, height/10, width, height);
+            // valleyContext.fillStyle=pixelColors[Math.floor(Math.random() * pixelColors.length)];
+            // valleyContext.globalCompositeOperation="source-in"
+            // valleyContext.fillRect(0,0, valleyCanvas.width, valleyCanvas.height)
+            // valleyContext.globalCompositeOperation="luminosity"
+            // valleyContext.drawImage(backgroundimage, 0, height/10, width, height);
+
+            // === draw on album canvas ===
+            drawAlbum(album);
+
+            // === draw on music control canvas ===
+            musicContext.drawImage(playbtn, 0, 0, playbtn.width/60, playbtn.height/60);
+            musicContext.drawImage(pausebtn, 20, 0, playbtn.width/60, pausebtn.height/60);
+            // musicContext.save()
+            // musicContext.restore()
+            musicContext.fillStyle = pixelColors[Math.floor(Math.random() * pixelColors.length)];
+            
+            musicContext.globalCompositeOperation = 'source-in';
+            musicContext.fillRect(0, 0, musicCanvas.width, musicCanvas.height);
+            musicContext.globalCompositeOperation = 'multiply';
+            // luminosity, screen, overlay, hard-light, soft-light, lighten, darken, maybe color-burn, exclusion
+
+            // === draw on main canvas ===
+
+            context.filter="contrast(120%)"
+            
+            context.fillStyle = '#000';
+            context.fillRect(0, 0, width, height);
+            context.save()
+            // context.drawImage(albumCanvas, 0, 0, 1, 1)
+            context.drawImage(albumCanvas, 0, -400, canvas.width, canvas.height)
+
+       
+
+            context.filter="opacity(10%)"
+            context.drawImage(halftoneimage, 0, 0,width,height)
+
+            context.restore()
+
+
+            // draw cat onto main canvas
+            context.save()
+            context.translate(250,-20)
+            // context.fillStyle = pixelColors[Math.floor(Math.random() * pixelColors.length)];
+            context.globalCompositeOperation="multiply"
+            // context.transform(1, 0.2, 0.8, 1, 0, 0);
+            context.filter="blur(50px)"
+            context.drawImage(catCanvas, (canvas.width/20), canvas.height/20)
+            context.restore()
+            // context.filter="blur(5px)"
+            context.drawImage(catCanvas, (canvas.width/20), canvas.height/20)
+
+
+           
+            // draw texture
+            context.restore()
+            context.save()
+  
+            context.filter="opacity(30%)"
+            context.globalCompositeOperation="screen"
+            context.drawImage(textureimage, 0, 0, width, height)
+            // draw random squares
+            context.restore()
+            drawRandomSquares(context, numSquares, maxWidth, maxHeight, maxColorValue, pixelColors);
+ 
+
+            // draw play pause
+            context.drawImage(musicCanvas, 900, 40)
+
+            catContext.filter="opacity(100%)"
+
+
+
+
+
+
+            
+
+
+
+            
+
+          }
+
+          
+
+
+
+
+
+          // wait for the DOM to load
+          window.addEventListener('load', () => {
+            setup();
+            draw();
+            // playsong();
+          });
+
+
+          window.addEventListener('resize', () => {
+            setup();
+            draw();     
+            // playsong();
+        });
+
+        
+  
+    </script>
+    
+</body>
+</html>

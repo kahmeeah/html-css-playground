@@ -1,0 +1,65 @@
+*, html, body {
+    cursor:url("../files/cursors/Normal.cur"), auto;
+}
+
+
+body{
+
+    background-image: url("files/imgs/sea1.jpeg");
+    background-color: rgb(22, 22, 37);
+    overflow: hidden;
+    max-width: 100%;
+    min-height: 100vh;
+}
+
+img {
+    display: inline-block;
+    position: absolute;
+}
+
+video{
+    display: inline-block;
+    position: absolute;
+    z-index:-1;
+    /* max-width: 100%; */
+
+}
+
+
+.texture-grid{
+    display: grid;
+    height: 100vh;
+    width: 100%;
+    grid-template-areas: one two;
+    grid-template-columns: auto auto;
+
+}
+
+#one{
+    fill: url(./files/imgs/texture1.jpg);
+    grid-area: one;
+    height: 100vh; 
+    max-width: 100%;
+}
+#two{
+    fill: url(./files/imgs/texture2.jpg);
+    grid-area: two;
+    height: 100vh; max-width: 100%;
+}
+
+
+.invert{
+    filter: none;
+}
+
+@media (prefers-color-scheme: light) {
+    body {
+        background-color: burlywood;
+        background-image: none;
+    }
+    .invert{
+        filter: invert();
+    }
+    
+
+}
