@@ -23,8 +23,10 @@
     <audio autoplay loop src="files/audio/Gentle lapping waves under dock.mp3"></audio>
     <audio autoplay loop src="files/audio/Free Radio Sound.mp3"></audio>
     <audio autoplay loop src="files/audio/Brown Noise Digitalspa.mp3"></audio>
-    <audio autoplay loop src="files/audio/Twilight.mp3"></audio>
-    <audio autoplay loop src="files/audio/ira manet reading 091524.m4a"></audio>
+    <audio autoplay src="files/audio/Twilight.mp3"></audio>
+    <audio id= "audio1" src="files/audio/ira manet reading 091524.m4a"></audio>
+    <audio id = "audio3" src="files/audio/ira manet urgent-soft.wav"></audio>
+    <audio id = "audio2" src="files/audio/ira manet-medium.wav"></audio>
     <!-- <div class="texture-grid">
         <div id="one"></div>
         <div id="two"></div>
@@ -51,6 +53,35 @@
     <!-- <img src="files/imgs/fish.png" alt="" style="scale: 30%; top: -500px; mix-blend-mode: screen;"> -->
     <!-- <img src="files/imgs/uglyman.jpg" alt="" style="right: 0px; bottom: 0px; mix-blend-mode: ;  z-index: -4;"> -->
     
+    <script>
+        let audio1 = document.getElementById('audio1');
+        let audio1PlayCount = 0;
+        audio1.addEventListener('ended', function() {
+            audio1PlayCount++;
+            if (audio1PlayCount < 2) {
+                audio1.play();
+            }
+        });
+        setTimeout(function() {
+            audio1.play();
+        }, 5000); // delay 5 seconds
     
+        setTimeout(function() {
+            document.getElementById('audio2').play();
+        }, 15000); // delay 15 seconds
+    
+        // play audio3 three times
+        let audio3 = document.getElementById('audio3');
+        let audio3PlayCount = 0;
+        audio3.addEventListener('ended', function() {
+            audio3PlayCount++;
+            if (audio3PlayCount < 3) {
+                audio3.play();
+            }
+        });
+        setTimeout(function() {
+            audio3.play();
+        }, 30000); // delay 30 seconds
+    </script>
 </body>
 </html>
