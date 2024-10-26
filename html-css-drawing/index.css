@@ -52,7 +52,7 @@ video{
     filter: none;
 }
 
-@media (prefers-color-scheme: light) {
+/* @media (prefers-color-scheme: light) {
     body {
         background-color: burlywood;
         background-image: none;
@@ -62,4 +62,4 @@ video{
     }
     
 
-}
+} */
