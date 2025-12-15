@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="index.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+
+    <video autoplay muted preload="auto" loop style="z-index: -50; mix-blend-mode: screen;">
+        <source src="files/imgs/light.mp4" type="video/mp4">
+    </video>
+    <video autoplay loop muted preload="auto" style="z-index: -50; mix-blend-mode: screen; max-width: 100%; opacity: 50%;">
+        <source src="files/imgs/rain.mp4" type="video/mp4">
+    </video>
+
+    
+
+    <audio autoplay loop src="files/audio/Forest River Birds Field.mp3"></audio>
+    <audio autoplay loop src="files/audio/Child Voicemail Message.mp3"></audio>
+    <audio autoplay loop src="files/audio/Gentle lapping waves under dock.mp3"></audio>
+    <audio autoplay loop src="files/audio/Free Radio Sound.mp3"></audio>
+    <audio autoplay loop src="files/audio/Brown Noise Digitalspa.mp3"></audio>
+    <audio autoplay src="files/audio/Twilight.mp3"></audio>
+    <audio id= "audio1" src="files/audio/ira manet reading 091524.m4a"></audio>
+    <audio id = "audio3" src="files/audio/ira manet urgent-soft.wav"></audio>
+    <audio id = "audio2" src="files/audio/ira manet-medium.wav"></audio>
+    <!-- <div class="texture-grid">
+        <div id="one"></div>
+        <div id="two"></div>
+    </div> -->
+    <img src="files/imgs/texture1.jpg" alt="" style="z-index: 0; mix-blend-mode: multiply; height: 100vh; top: 0px; left: 0px;">
+    <img src="files/imgs/texture2.jpg" alt="" style="z-index: -1; mix-blend-mode: multiply; right: 0px; height: 100vh;">
+    <img src="files/imgs/texture3.jpeg" alt="" style="z-index: -1; right: 50%; height: 100vh; opacity: 30%;">
+    <!-- <img src="files/imgs/sea1.jpeg" alt=""> -->
+    <img src="files/imgs/eyes.jpeg" alt="" style="z-index: 0;">
+    <!-- <img src="files/imgs/Glitch.png" alt="" style="mix-blend-mode: color-dodge; right: -100px; z-index: 2; opacity: 50%; "> -->
+    <img src="files/imgs/Glitch.png" alt="" style="mix-blend-mode: color-dodge; right: 50px; z-index: 2;">
+    <img src="files/imgs/fear.jpg" alt="" style="width: 200px; bottom: 0px; left: 600px; mix-blend-mode: screen;">
+    <!-- <img src="files/imgs/Ophelia.jpg" alt="" style="width: 85%; mix-blend-mode: overlay; z-index: 2;"> -->
+    <img src="files/imgs/Ophelia.jpg" alt="" style="width: 85%; mix-blend-mode:difference; z-index: 0;">
+    <img src="files/imgs/Ophelia.jpg" alt="" style="width: 85%; mix-blend-mode:difference; z-index: -2; bottom: 0px; opacity: 80%; right: 0px;">
+    <img src="files/imgs/apple.gif" alt="" style="mix-blend-mode: overlay; right: 100px; z-index: 0;">
+    <img class="invert" src="files/imgs/sea2.jpeg" alt="" style="mix-blend-mode: color; "> 
+    <video loop autoplay muted preload="auto" style="bottom: 0px; mix-blend-mode: overlay ;">
+        <source src="files/imgs/ocean.mp4" type="video/mp4"> 
+    </video>
+    <img src="files/imgs/girl2.jpg" alt="" style="mix-blend-mode: difference; top: -2px; right: 0px; transform: rotateX(180deg); z-index: -5;">
+    <img src="files/imgs/Ladybugs.png" alt="" style="right: 1000px; bottom: 0px; opacity: 100%; mix-blend-mode: hard-light;">
+    <img src="files/imgs/teeth.png" alt="" style="left: 300px; scale: 40%; mix-blend-mode: screen;">
+    <!-- <img src="files/imgs/fish.png" alt="" style="scale: 30%; top: -500px; mix-blend-mode: screen;"> -->
+    <!-- <img src="files/imgs/uglyman.jpg" alt="" style="right: 0px; bottom: 0px; mix-blend-mode: ;  z-index: -4;"> -->
+    
+    <script>
+        let audio1 = document.getElementById('audio1');
+        let audio1PlayCount = 0;
+        audio1.addEventListener('ended', function() {
+            audio1PlayCount++;
+            if (audio1PlayCount < 2) {
+                audio1.play();
+            }
+        });
+        setTimeout(function() {
+            audio1.play();
+        }, 5000); // delay 5 seconds
+    
+        setTimeout(function() {
+            document.getElementById('audio2').play();
+        }, 15000); // delay 15 seconds
+    
+        // play audio3 three times
+        let audio3 = document.getElementById('audio3');
+        let audio3PlayCount = 0;
+        audio3.addEventListener('ended', function() {
+            audio3PlayCount++;
+            if (audio3PlayCount < 3) {
+                audio3.play();
+            }
+        });
+        setTimeout(function() {
+            audio3.play();
+        }, 30000); // delay 30 seconds
+    </script>
+</body>
+</html>
